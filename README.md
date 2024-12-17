@@ -2,11 +2,12 @@
 
 Latest is a Go library to help you find the latest available versions of things.
 
-It currently supports:
+It currently supports finding the:
 
  - Latest tag in a git repository
  - Latest tag in a container image repository
  - Latest digest of a tag in a container image repository
+ - Latest release of Go (along with download URL and checksum)
 
 For examples of each, see the `examples` directory.
 

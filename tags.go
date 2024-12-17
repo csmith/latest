@@ -32,7 +32,7 @@ func WithIgnoreErrors() TagOption {
 }
 
 // WithTrimPrefix indicates that if the given prefix is found on a tag, it should be ignored.
-// This option may be specified multiple times. Prefixes will be trimmed in order.
+// This option may be specified multiple times. Prefixes will be stripped in order.
 func WithTrimPrefix(prefix string) TagOption {
 	return func(o *tagOptions) {
 		o.trimPrefixes = append(o.trimPrefixes, prefix)
