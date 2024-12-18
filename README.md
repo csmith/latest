@@ -8,6 +8,7 @@ It currently supports finding the:
  - Latest tag in a container image repository
  - Latest digest of a tag in a container image repository
  - Latest release of Go (along with download URL and checksum)
+ - Latest release of Postgres (along with download URL and checksum)
 
 For examples of each, see the `examples` directory.
 

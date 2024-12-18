@@ -14,6 +14,8 @@ type tagOptions struct {
 	ignoreErrors     bool
 	ignorePreRelease bool
 	trimPrefixes     []string
+	trimSuffixes     []string
+	majorVersionMax  *int
 }
 
 // WithIgnoreDates indicates that tags that look like dates (starting yyyymmdd or yyyy-mm-dd)
@@ -39,6 +41,22 @@ func WithTrimPrefix(prefix string) TagOption {
 	}
 }
 
+// WithTrimSuffix indicates that if the given suffix is found on a tag, it should be ignored.
+// This option may be specified multiple times. Suffixes will be stripped in order.
+func WithTrimSuffix(suffix string) TagOption {
+	return func(o *tagOptions) {
+		o.trimSuffixes = append(o.trimSuffixes, suffix)
+	}
+}
+
+// WithMaximumMajorVersion constraints the result to have a major version not
+// more than the one specified.
+func WithMaximumMajorVersion(version int) TagOption {
+	return func(o *tagOptions) {
+		o.majorVersionMax = &version
+	}
+}
+
 var dateRegexp = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2})|(\d{8})`)
 
 func (t *tagOptions) latest(tags []string) (string, error) {
@@ -49,6 +67,9 @@ func (t *tagOptions) latest(tags []string) (string, error) {
 		stripped := tags[i]
 		for _, prefix := range t.trimPrefixes {
 			stripped = strings.TrimPrefix(stripped, prefix)
+		}
+		for _, suffix := range t.trimSuffixes {
+			stripped = strings.TrimSuffix(stripped, suffix)
 		}
 
 		if t.ignoreDates && dateRegexp.MatchString(stripped) {
@@ -65,6 +86,10 @@ func (t *tagOptions) latest(tags []string) (string, error) {
 		}
 
 		if v.Prerelease() != "" && t.ignorePreRelease {
+			continue
+		}
+
+		if t.majorVersionMax != nil && *t.majorVersionMax < v.Segments()[0] {
 			continue
 		}
 
