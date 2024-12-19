@@ -1,7 +1,11 @@
 package internal
 
 func ResolveOptions[T any](opts []func(*T)) *T {
-	opt := new(T)
+	return ResolveOptionsWithDefaults(opts, new(T))
+}
+
+func ResolveOptionsWithDefaults[T any](opts []func(*T), defaults *T) *T {
+	opt := defaults
 	for _, o := range opts {
 		o(opt)
 	}

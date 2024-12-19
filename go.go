@@ -45,17 +45,14 @@ func WithKind(kind string) GoOption {
 // GoRelease finds the latest release of Go, returning the version, download URL
 // and file checksum.
 func GoRelease(ctx context.Context, options ...GoOption) (latestVersion, downloadUrl, downloadChecksum string, err error) {
-	o := internal.ResolveOptions(options)
+	o := internal.ResolveOptionsWithDefaults(options, &goOption{
+		kind: "source",
+	})
 
 	const (
 		baseUrl      = "https://golang.org/dl/"
 		jsonReleases = baseUrl + "?mode=json"
-		defaultKind  = "source"
 	)
-
-	if o.kind == "" {
-		o.kind = defaultKind
-	}
 
 	var releases []struct {
 		Version string `json:"version"`

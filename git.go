@@ -16,7 +16,9 @@ const gitTagPrefix = "refs/tags/"
 //
 // The repository must be specified as an HTTP/HTTPS url.
 func GitTag(ctx context.Context, repo string, options ...TagOption) (string, error) {
-	o := internal.ResolveOptions(append([]TagOption{WithTrimPrefix(gitTagPrefix)}, options...))
+	o := internal.ResolveOptionsWithDefaults(options, &tagOptions{
+		trimPrefixes: []string{gitTagPrefix},
+	})
 
 	refs, err := gitrefs.Fetch(repo, gitrefs.TagsOnly(), gitrefs.WithContext(ctx))
 	if err != nil {

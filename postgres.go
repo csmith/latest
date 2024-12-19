@@ -8,7 +8,9 @@ import (
 )
 
 func PostgresRelease(ctx context.Context, options ...TagOption) (latest, url, checksum string, err error) {
-	o := internal.ResolveOptions(append([]TagOption{WithTrimSuffix("/")}, options...))
+	o := internal.ResolveOptionsWithDefaults(options, &tagOptions{
+		trimSuffixes: []string{"/"},
+	})
 
 	const (
 		postgresReleaseIndex = "https://ftp.postgresql.org/pub/source/"
