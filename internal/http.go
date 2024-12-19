@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"gopkg.in/yaml.v2"
 	"io"
 	"net/http"
 	"strings"
@@ -24,6 +25,22 @@ func FetchJson(ctx context.Context, url string, i interface{}) error {
 
 	defer r.Body.Close()
 	return json.NewDecoder(r.Body).Decode(i)
+}
+
+// FetchYaml requests the given url and then attempts to unmarshal the body as YAML into the provided struct.
+func FetchYaml(ctx context.Context, url string, i interface{}) error {
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	r, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
+	defer r.Body.Close()
+	return yaml.NewDecoder(r.Body).Decode(i)
 }
 
 // FetchHtmlAndFind downloads the HTML page at the given URL and runs the specified CSS selector over it to find nodes.

@@ -9,35 +9,35 @@ import (
 	"strings"
 )
 
-type GoOption = func(*goOption)
+type GoOption = func(*goOptions)
 
-type goOption struct {
+type goOptions struct {
 	os   string
 	arch string
 	kind string
 }
 
-// WithOS indicates that GoRelease should return only files for the specified OS.
-func WithOS(os string) GoOption {
-	return func(o *goOption) {
+// WithGoOS indicates that GoRelease should return only files for the specified OS.
+func WithGoOS(os string) GoOption {
+	return func(o *goOptions) {
 		o.os = os
 	}
 }
 
-// WithArch indicates that GoRelease should return only files for the specified architecture.
-func WithArch(arch string) GoOption {
-	return func(o *goOption) {
+// WithGoArch indicates that GoRelease should return only files for the specified architecture.
+func WithGoArch(arch string) GoOption {
+	return func(o *goOptions) {
 		o.arch = arch
 	}
 }
 
-// WithKind indicates that GoRelease should return only files of the specified kind.
+// WithGoKind indicates that GoRelease should return only files of the specified kind.
 //
 // Valid kinds at time of writing are: "source", "archive" and "installer".
 //
 // If not specified defaults to "source".
-func WithKind(kind string) GoOption {
-	return func(o *goOption) {
+func WithGoKind(kind string) GoOption {
+	return func(o *goOptions) {
 		o.kind = kind
 	}
 }
@@ -45,7 +45,7 @@ func WithKind(kind string) GoOption {
 // GoRelease finds the latest release of Go, returning the version, download URL
 // and file checksum.
 func GoRelease(ctx context.Context, options ...GoOption) (latestVersion, downloadUrl, downloadChecksum string, err error) {
-	o := internal.ResolveOptionsWithDefaults(options, &goOption{
+	o := internal.ResolveOptionsWithDefaults(options, &goOptions{
 		kind: "source",
 	})
 

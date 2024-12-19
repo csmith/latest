@@ -11,21 +11,21 @@ import (
 
 type ImageOption = func(*imageOptions)
 
-// WithRegistry specifies the default registry to use if image names aren't
+// WithContainerRegistry specifies the default registry to use if image names aren't
 // fully-qualified.
 //
 // If not set, defaults to "docker.io".
-func WithRegistry(registry string) ImageOption {
+func WithContainerRegistry(registry string) ImageOption {
 	return func(options *imageOptions) {
 		options.registry = registry
 	}
 }
 
-// WithAuth specifies auth credentials to use when talking to the image
+// WithContainerAuth specifies auth credentials to use when talking to the image
 // registry.
 //
 // If not set, will attempt to use the docker config file.
-func WithAuth(username string, password string) ImageOption {
+func WithContainerAuth(username string, password string) ImageOption {
 	return func(options *imageOptions) {
 		options.username = username
 		options.password = password
