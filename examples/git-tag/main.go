@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	digest, err := latest.GitTag(context.Background(), "https://github.com/csmith/gitrefs")
+	digest, err := latest.GitTag(
+		context.Background(),
+		"https://github.com/csmith/gitrefs",
+		nil,
+	)
 	if err != nil {
 		panic(err)
 	}

@@ -7,7 +7,12 @@ import (
 )
 
 func main() {
-	version, url, checksum, err := latest.PostgresRelease(context.Background(), latest.WithMaximumMajorVersion(16))
+	version, url, checksum, err := latest.PostgresRelease(
+		context.Background(),
+		&latest.TagOptions{
+			MajorVersionMax: 16,
+		},
+	)
 	if err != nil {
 		panic(err)
 	}

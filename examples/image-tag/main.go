@@ -10,10 +10,12 @@ func main() {
 	digest, err := latest.ImageTag(
 		context.Background(),
 		"alpine",
-		latest.WithTagOptions(
-			latest.WithIgnoreErrors(),
-			latest.WithIgnoreDates(),
-		),
+		&latest.ImageTagOptions{
+			TagOptions: latest.TagOptions{
+				IgnoreErrors: true,
+				IgnoreDates:  true,
+			},
+		},
 	)
 	if err != nil {
 		panic(err)

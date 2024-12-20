@@ -9,98 +9,77 @@ import (
 	"strings"
 )
 
-type ImageOption = func(*imageOptions)
-
-// WithContainerRegistry specifies the default registry to use if image names aren't
-// fully-qualified.
-//
-// If not set, defaults to "docker.io".
-func WithContainerRegistry(registry string) ImageOption {
-	return func(options *imageOptions) {
-		options.registry = registry
-	}
+// ImageOptions defines options for image-related functions.
+type ImageOptions struct {
+	// The registry to use if image names aren't fully-qualified.
+	// Defaults to "docker.io".
+	Registry string
+	// The username to use to authenticate to registries.
+	// If not set, will attempt to use the docker config file.
+	Username string
+	// The password to use to authenticate to registries.
+	// If not set, will attempt to use the docker config file.
+	Password string
 }
 
-// WithContainerAuth specifies auth credentials to use when talking to the image
-// registry.
-//
-// If not set, will attempt to use the docker config file.
-func WithContainerAuth(username string, password string) ImageOption {
-	return func(options *imageOptions) {
-		options.username = username
-		options.password = password
-	}
-}
-
-type imageOptions struct {
-	registry string
-	username string
-	password string
-}
-
-func (o *imageOptions) craneAuth() crane.Option {
+func (o *ImageOptions) craneAuth() crane.Option {
 	var authOpt crane.Option
 
-	if o.username == "" || o.password == "" {
+	if o.Username == "" || o.Password == "" {
 		authOpt = crane.WithAuthFromKeychain(authn.DefaultKeychain)
 	} else {
 		authOpt = crane.WithAuth(&authn.Basic{
-			Username: o.username,
-			Password: o.password,
+			Username: o.Username,
+			Password: o.Password,
 		})
 	}
 
 	return authOpt
 }
 
-func (o *imageOptions) imageName(ref string) string {
+func (o *ImageOptions) imageName(ref string) string {
 	if index := strings.IndexByte(ref, '.'); index != -1 && index < strings.IndexByte(ref, '/') {
 		return ref
-	} else if o.registry != "" {
-		return fmt.Sprintf("%s/%s", o.registry, ref)
 	} else {
-		return fmt.Sprintf("docker.io/%s", ref)
+		return fmt.Sprintf("%s/%s", o.Registry, ref)
 	}
 }
 
 // ImageDigest queries an image registry and returns the latest digest of an
 // image with the given name.
-func ImageDigest(ctx context.Context, name string, options ...ImageOption) (string, error) {
-	o := internal.ResolveOptions(options)
+func ImageDigest(ctx context.Context, name string, options *ImageOptions) (string, error) {
+	o := internal.ApplyDefaults(
+		&ImageOptions{
+			Registry: "docker.io",
+		},
+		options,
+	)
 	return crane.Digest(o.imageName(name), o.craneAuth(), crane.WithContext(ctx))
 }
 
-type ImageTagOption = func(*imageTagOptions)
-
-type imageTagOptions struct {
-	imageOptions
-	tagOptions
-}
-
-func WithImageOptions(imageOptions ...ImageOption) ImageTagOption {
-	return func(options *imageTagOptions) {
-		for i := range imageOptions {
-			imageOptions[i](&options.imageOptions)
-		}
-	}
-}
-
-func WithTagOptions(tagOptions ...TagOption) ImageTagOption {
-	return func(options *imageTagOptions) {
-		for i := range tagOptions {
-			tagOptions[i](&options.tagOptions)
-		}
-	}
+// ImageTagOptions defines the options for calls to ImageTag.
+type ImageTagOptions struct {
+	ImageOptions
+	TagOptions
 }
 
 // ImageTag queries an image registry for the available tags for the given
 // image, and returns the latest semver tag.
-func ImageTag(ctx context.Context, name string, options ...ImageTagOption) (string, error) {
-	o := internal.ResolveOptions(options)
+func ImageTag(ctx context.Context, name string, options *ImageTagOptions) (string, error) {
+	o := internal.ApplyDefaults(
+		&ImageTagOptions{
+			ImageOptions: ImageOptions{
+				Registry: "docker.io",
+			},
+			TagOptions: defaultTagOptions,
+		},
+		options,
+	)
+
 	tags, err := crane.ListTags(o.imageName(name), o.craneAuth(), crane.WithContext(ctx))
 	if err != nil {
 		return "", err
 	}
 
-	return o.tagOptions.latest(tags)
+	return o.TagOptions.latest(tags)
 }

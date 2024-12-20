@@ -15,10 +15,9 @@ const gitTagPrefix = "refs/tags/"
 // latest semver tag.
 //
 // The repository must be specified as an HTTP/HTTPS url.
-func GitTag(ctx context.Context, repo string, options ...TagOption) (string, error) {
-	o := internal.ResolveOptionsWithDefaults(options, &tagOptions{
-		trimPrefixes: []string{gitTagPrefix},
-	})
+func GitTag(ctx context.Context, repo string, options *TagOptions) (string, error) {
+	o := internal.ApplyDefaults(&defaultTagOptions, options)
+	o.TrimPrefixes = append([]string{gitTagPrefix}, o.TrimPrefixes...)
 
 	refs, err := gitrefs.Fetch(repo, gitrefs.TagsOnly(), gitrefs.WithContext(ctx))
 	if err != nil {

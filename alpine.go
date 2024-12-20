@@ -104,6 +104,7 @@ func NewInMemoryAlpinePackageCache() AlpinePackageCache {
 	}
 }
 
+// AlpinePackageOptions defines options for calls to AlpinePackage
 type AlpinePackageOptions struct {
 	// The cache to use for persisting package information. Defaults to a new
 	// in-memory cache, which will cause the package list to be updated every

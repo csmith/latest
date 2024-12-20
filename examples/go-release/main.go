@@ -7,7 +7,13 @@ import (
 )
 
 func main() {
-	version, url, checksum, err := latest.GoRelease(context.Background(), latest.WithGoKind("installer"), latest.WithGoOS("darwin"))
+	version, url, checksum, err := latest.GoRelease(
+		context.Background(),
+		&latest.GoOptions{
+			Kind: "installer",
+			Os:   "darwin",
+		},
+	)
 	if err != nil {
 		panic(err)
 	}

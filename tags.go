@@ -3,93 +3,64 @@ package latest
 import (
 	"fmt"
 	"github.com/hashicorp/go-version"
+	"math"
 	"regexp"
 	"strings"
 )
 
-type TagOption = func(*tagOptions)
-
-type tagOptions struct {
-	ignoreDates      bool
-	ignoreErrors     bool
-	ignorePreRelease bool
-	trimPrefixes     []string
-	trimSuffixes     []string
-	majorVersionMax  *int
+// TagOptions defines options for functions that need to deal with semver tags.
+type TagOptions struct {
+	// Should tags that look like dates (starting yyyymmdd or yyyy-mm-dd) be ignored?
+	IgnoreDates bool
+	// Should tags that are not parseable as semver be silently ignored?
+	IgnoreErrors bool
+	// Should pre-releases (-alpha, -beta, etc) be ignored?
+	IgnorePreRelease bool
+	// Strings to remove from the start of tags. Processed in order.
+	TrimPrefixes []string
+	// Strings to remove from the ends of tags. Processed in order.
+	TrimSuffixes []string
+	// The maximum major version to consider.
+	MajorVersionMax int
 }
 
-// WithIgnoreDates indicates that tags that look like dates (starting yyyymmdd or yyyy-mm-dd)
-// should be ignored.
-func WithIgnoreDates() TagOption {
-	return func(o *tagOptions) {
-		o.ignoreDates = true
-	}
-}
-
-// WithIgnoreErrors indicates tags that are not parseable as semver should be silently ignored.
-func WithIgnoreErrors() TagOption {
-	return func(o *tagOptions) {
-		o.ignoreErrors = true
-	}
-}
-
-// WithTrimPrefix indicates that if the given prefix is found on a tag, it should be ignored.
-// This option may be specified multiple times. Prefixes will be stripped in order.
-func WithTrimPrefix(prefix string) TagOption {
-	return func(o *tagOptions) {
-		o.trimPrefixes = append(o.trimPrefixes, prefix)
-	}
-}
-
-// WithTrimSuffix indicates that if the given suffix is found on a tag, it should be ignored.
-// This option may be specified multiple times. Suffixes will be stripped in order.
-func WithTrimSuffix(suffix string) TagOption {
-	return func(o *tagOptions) {
-		o.trimSuffixes = append(o.trimSuffixes, suffix)
-	}
-}
-
-// WithMaximumMajorVersion constraints the result to have a major version not
-// more than the one specified.
-func WithMaximumMajorVersion(version int) TagOption {
-	return func(o *tagOptions) {
-		o.majorVersionMax = &version
-	}
+var defaultTagOptions = TagOptions{
+	MajorVersionMax: math.MaxInt,
 }
 
 var dateRegexp = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2})|(\d{8})`)
 
-func (t *tagOptions) latest(tags []string) (string, error) {
+func (t *TagOptions) latest(tags []string) (string, error) {
 	best := version.Must(version.NewVersion("0.0.0"))
 	bestRaw := ""
 
 	for i := range tags {
 		stripped := tags[i]
-		for _, prefix := range t.trimPrefixes {
+		for _, prefix := range t.TrimPrefixes {
 			stripped = strings.TrimPrefix(stripped, prefix)
 		}
-		for _, suffix := range t.trimSuffixes {
+		for _, suffix := range t.TrimSuffixes {
 			stripped = strings.TrimSuffix(stripped, suffix)
 		}
 
-		if t.ignoreDates && dateRegexp.MatchString(stripped) {
+		if t.IgnoreDates && dateRegexp.MatchString(stripped) {
 			continue
 		}
 
 		v, err := version.NewVersion(stripped)
 		if err != nil {
-			if t.ignoreErrors {
+			if t.IgnoreErrors {
 				continue
 			} else {
 				return "", fmt.Errorf("unable to parse tag '%s': %w", stripped, err)
 			}
 		}
 
-		if v.Prerelease() != "" && t.ignorePreRelease {
+		if v.Prerelease() != "" && t.IgnorePreRelease {
 			continue
 		}
 
-		if t.majorVersionMax != nil && *t.majorVersionMax < v.Segments()[0] {
+		if t.MajorVersionMax < v.Segments()[0] {
 			continue
 		}
 

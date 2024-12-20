@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	digest, err := latest.ImageDigest(context.Background(), "alpine:latest")
+	digest, err := latest.ImageDigest(
+		context.Background(),
+		"alpine:latest",
+		nil,
+	)
 	if err != nil {
 		panic(err)
 	}

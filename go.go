@@ -9,45 +9,27 @@ import (
 	"strings"
 )
 
-type GoOption = func(*goOptions)
-
-type goOptions struct {
-	os   string
-	arch string
-	kind string
-}
-
-// WithGoOS indicates that GoRelease should return only files for the specified OS.
-func WithGoOS(os string) GoOption {
-	return func(o *goOptions) {
-		o.os = os
-	}
-}
-
-// WithGoArch indicates that GoRelease should return only files for the specified architecture.
-func WithGoArch(arch string) GoOption {
-	return func(o *goOptions) {
-		o.arch = arch
-	}
-}
-
-// WithGoKind indicates that GoRelease should return only files of the specified kind.
-//
-// Valid kinds at time of writing are: "source", "archive" and "installer".
-//
-// If not specified defaults to "source".
-func WithGoKind(kind string) GoOption {
-	return func(o *goOptions) {
-		o.kind = kind
-	}
+// GoOptions defines options for calling GoRelease.
+type GoOptions struct {
+	// If set, only return files for this OS.
+	Os string
+	// If set, only return files for this Architecture.
+	Arch string
+	// The kind of file to return. Defaults to "source".
+	//
+	// Valid kinds at time of writing are: "source", "archive" and "installer".
+	Kind string
 }
 
 // GoRelease finds the latest release of Go, returning the version, download URL
 // and file checksum.
-func GoRelease(ctx context.Context, options ...GoOption) (latestVersion, downloadUrl, downloadChecksum string, err error) {
-	o := internal.ResolveOptionsWithDefaults(options, &goOptions{
-		kind: "source",
-	})
+func GoRelease(ctx context.Context, options *GoOptions) (latestVersion, downloadUrl, downloadChecksum string, err error) {
+	o := internal.ApplyDefaults(
+		&GoOptions{
+			Kind: "source",
+		},
+		options,
+	)
 
 	const (
 		baseUrl      = "https://golang.org/dl/"
@@ -81,7 +63,7 @@ func GoRelease(ctx context.Context, options ...GoOption) (latestVersion, downloa
 			best = v
 
 			for j := range r.Files {
-				if r.Files[j].Kind == o.kind && (o.arch == "" || r.Files[j].Arch == o.arch) && (o.os == "" || r.Files[j].Os == o.os) {
+				if r.Files[j].Kind == o.Kind && (o.Arch == "" || r.Files[j].Arch == o.Arch) && (o.Os == "" || r.Files[j].Os == o.Os) {
 					latestVersion = r.Version
 					downloadUrl, _ = url.JoinPath(baseUrl, r.Files[j].Filename)
 					downloadChecksum = r.Files[j].Checksum
