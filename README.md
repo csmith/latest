@@ -10,6 +10,7 @@ It currently supports finding the:
  - Latest release of Go (along with download URL and checksum)
  - Latest release of Postgres (along with download URL and checksum)
  - Latest release of Alpine Linux (along with download URL and checksum)
+ - Latest version of an Alpine package (along with download URL and dependencies)
 
 For examples of each, see the `examples` directory.
 

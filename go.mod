@@ -3,7 +3,9 @@ module github.com/csmith/latest
 go 1.23.4
 
 require (
+	dario.cat/mergo v1.0.1
 	github.com/PuerkitoBio/goquery v1.10.0
+	github.com/csmith/apkutils v1.0.0
 	github.com/csmith/gitrefs v1.3.0
 	github.com/google/go-containerregistry v0.20.2
 	github.com/hashicorp/go-version v1.7.0
@@ -13,6 +15,7 @@ require (
 require (
 	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
+	github.com/csmith/apkutils/v2 v2.0.0 // indirect
 	github.com/docker/cli v27.1.1+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect

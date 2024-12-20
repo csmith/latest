@@ -9,8 +9,10 @@ import (
 func main() {
 	version, url, checksum, err := latest.AlpineRelease(
 		context.Background(),
-		latest.WithAlpineArch("aarch64"),
-		latest.WithAlpineFlavour("minirootfs"),
+		&latest.AlpineReleaseOptions{
+			Arch:    "aarch64",
+			Flavour: "minirootfs",
+		},
 	)
 	if err != nil {
 		panic(err)
