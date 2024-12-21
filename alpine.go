@@ -74,6 +74,8 @@ func AlpineRelease(ctx context.Context, options *AlpineReleaseOptions) (latestVe
 	return "", "", "", fmt.Errorf("couldn't find matching alpine release")
 }
 
+type AlpinePackageInfo = apkutils.PackageInfo
+
 // AlpinePackagesOptions defines options for calls to AlpinePackages
 type AlpinePackagesOptions struct {
 	// The provider for Alpine Linux public keys, used to verify the signature of the APKINDEX.
@@ -98,7 +100,7 @@ var alpinePackagesDefaults = AlpinePackagesOptions{
 }
 
 // AlpinePackages retrieves the latest list of packages available from an Alpine Linux repository.
-func AlpinePackages(ctx context.Context, options *AlpinePackagesOptions) (map[string]*apkutils.PackageInfo, error) {
+func AlpinePackages(ctx context.Context, options *AlpinePackagesOptions) (map[string]*AlpinePackageInfo, error) {
 	o := internal.ApplyDefaults(&alpinePackagesDefaults, options)
 
 	base, err := url.JoinPath(o.Mirror, o.Branch, o.Repository, o.Arch)
@@ -129,21 +131,21 @@ func AlpinePackages(ctx context.Context, options *AlpinePackagesOptions) (map[st
 // packages between calls of AlpinePackage.
 type AlpinePackageCache interface {
 	// Put stores the given data in the cache
-	Put(map[string]*apkutils.PackageInfo) error
+	Put(map[string]*AlpinePackageInfo) error
 	// Get retrieves the existing cached data, or an empty map if not available
-	Get() (map[string]*apkutils.PackageInfo, error)
+	Get() (map[string]*AlpinePackageInfo, error)
 }
 
 type inMemoryAlpinePackage struct {
-	packages map[string]*apkutils.PackageInfo
+	packages map[string]*AlpinePackageInfo
 }
 
-func (i *inMemoryAlpinePackage) Put(m map[string]*apkutils.PackageInfo) error {
+func (i *inMemoryAlpinePackage) Put(m map[string]*AlpinePackageInfo) error {
 	i.packages = m
 	return nil
 }
 
-func (i *inMemoryAlpinePackage) Get() (map[string]*apkutils.PackageInfo, error) {
+func (i *inMemoryAlpinePackage) Get() (map[string]*AlpinePackageInfo, error) {
 	return i.packages, nil
 }
 
@@ -151,7 +153,7 @@ func (i *inMemoryAlpinePackage) Get() (map[string]*apkutils.PackageInfo, error) 
 // stores the package data in memory.
 func NewInMemoryAlpinePackageCache() AlpinePackageCache {
 	return &inMemoryAlpinePackage{
-		packages: make(map[string]*apkutils.PackageInfo),
+		packages: make(map[string]*AlpinePackageInfo),
 	}
 }
 
