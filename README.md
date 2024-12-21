@@ -11,6 +11,7 @@ It currently supports finding the:
  - Latest release of Postgres (along with download URL and checksum)
  - Latest release of Alpine Linux (along with download URL and checksum)
  - Latest version of an Alpine package (along with download URL and dependencies)
+ - Latest info for all Alpine packages in a repository
 
 For examples of each, see the `examples` directory.
 

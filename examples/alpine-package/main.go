@@ -12,9 +12,11 @@ func main() {
 		context.Background(),
 		"cmake",
 		&latest.AlpinePackageOptions{
-			Arch:        "aarch64",
-			Branch:      "edge",
-			KeyProvider: keys.Aarch64,
+			AlpinePackagesOptions: latest.AlpinePackagesOptions{
+				Arch:        "aarch64",
+				Branch:      "edge",
+				KeyProvider: keys.Aarch64,
+			},
 		},
 	)
 	if err != nil {
