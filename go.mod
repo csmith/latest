@@ -3,7 +3,7 @@ module github.com/csmith/latest
 go 1.23.4
 
 require (
-	dario.cat/mergo v1.0.1
+	dario.cat/mergo v1.0.2
 	github.com/PuerkitoBio/goquery v1.10.3
 	github.com/csmith/apkutils/v2 v2.0.0
 	github.com/csmith/gitrefs v1.3.0
