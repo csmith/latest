@@ -6,8 +6,8 @@ github.com/andybalholm/cascadia v1.3.3 h1:AG2YHrzJIm4BZ19iwJ/DAua6Btl3IwJX+VI4kk
 github.com/andybalholm/cascadia v1.3.3/go.mod h1:xNd9bqTn98Ln4DwST8/nG+H0yuB8Hmgu1YHNnWw0GeA=
 github.com/containerd/stargz-snapshotter/estargz v0.16.3 h1:7evrXtoh1mSbGj/pfRccTampEyKpjpOnS3CyiV1Ebr8=
 github.com/containerd/stargz-snapshotter/estargz v0.16.3/go.mod h1:uyr4BfYfOj3G9WBVE8cOlQmXAbPN9VEQpBBeJIuOipU=
-github.com/csmith/apkutils/v2 v2.0.0 h1:+tlzdQ1XYLpGYY1FRU0NGPxxOyxwUzvjZPw9769VVcg=
-github.com/csmith/apkutils/v2 v2.0.0/go.mod h1:DEZWmaj7toe6hQC6xXAjAa+3xEin2tCIdmjdbysMItY=
+github.com/csmith/apkutils/v2 v2.1.0 h1:fnB/Y15HIh1zghy2ptA0iOEnCL1Sw6YkWJnVbL0XuVg=
+github.com/csmith/apkutils/v2 v2.1.0/go.mod h1:Sy2/VD2tcbrTnRQzwNrUuK5FPIeo4T3JN0w8u9zw6kA=
 github.com/csmith/gitrefs v1.3.0 h1:Z8Ah29ZUk+NiM1t7Wo2P+S8u7iMp6tUijD4AuLEKLw8=
 github.com/csmith/gitrefs v1.3.0/go.mod h1:oiFvJeKw0sJijYAiA8p92vGyIfaY7+dWwjORnHXWBwc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
