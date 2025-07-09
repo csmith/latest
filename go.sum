@@ -8,8 +8,8 @@ github.com/containerd/stargz-snapshotter/estargz v0.16.3 h1:7evrXtoh1mSbGj/pfRcc
 github.com/containerd/stargz-snapshotter/estargz v0.16.3/go.mod h1:uyr4BfYfOj3G9WBVE8cOlQmXAbPN9VEQpBBeJIuOipU=
 github.com/csmith/apkutils/v2 v2.0.0 h1:+tlzdQ1XYLpGYY1FRU0NGPxxOyxwUzvjZPw9769VVcg=
 github.com/csmith/apkutils/v2 v2.0.0/go.mod h1:DEZWmaj7toe6hQC6xXAjAa+3xEin2tCIdmjdbysMItY=
-github.com/csmith/gitrefs v1.3.0 h1:Z8Ah29ZUk+NiM1t7Wo2P+S8u7iMp6tUijD4AuLEKLw8=
-github.com/csmith/gitrefs v1.3.0/go.mod h1:oiFvJeKw0sJijYAiA8p92vGyIfaY7+dWwjORnHXWBwc=
+github.com/csmith/gitrefs v1.4.0 h1:9LZwnrLK+6BYESoqJPIYRj9kbnsUXvEts230rbQbRmw=
+github.com/csmith/gitrefs v1.4.0/go.mod h1:S1KfFBs//RGZIKFlT8fzfhSP70C/sKu/lkbyU8CRsHo=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
