@@ -197,7 +197,7 @@ func AlpinePackage(ctx context.Context, pkg string, options *AlpinePackageOption
 	}
 
 	if len(packages) == 0 {
-		packages, err = AlpinePackages(ctx, &options.AlpinePackagesOptions)
+		packages, err = AlpinePackages(ctx, &o.AlpinePackagesOptions)
 		if err != nil {
 			return "", "", nil, err
 		}
