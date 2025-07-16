@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## 1.1.1 - 2025-07-16
 
- - Fixed bug with using default alpine package options causing an NPE
+### Bug fixes 
+
+- Fixed panic if passing `nil` to use default alpine package options.
+  Thanks @Greboid.
 
 ## 1.1.0 - 2025-07-09
 
