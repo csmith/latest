@@ -8,6 +8,7 @@ require (
 	dario.cat/mergo v1.0.2
 	github.com/PuerkitoBio/goquery v1.10.3
 	github.com/csmith/apkutils/v2 v2.1.0
+	github.com/csmith/envflag/v2 v2.0.0
 	github.com/csmith/gitrefs v1.4.0
 	github.com/google/go-containerregistry v0.20.6
 	github.com/hashicorp/go-version v1.7.0
