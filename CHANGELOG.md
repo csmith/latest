@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 - 2025-08-03
+
+### Other changes
+
+- Added executable utilities to exercise the library functions.
+  Thanks @Greboid.
+
 ## 1.1.1 - 2025-07-16
 
 ### Bug fixes 

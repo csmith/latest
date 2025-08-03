@@ -13,6 +13,6 @@ It currently supports finding the:
  - Latest version of an Alpine package (along with download URL and dependencies)
  - Latest info for all Alpine packages in a repository
 
-For examples of each, see the `examples` directory.
+For examples of each, see the `cmd` directory.
 
 Contributions of/requests for other sources welcome!
