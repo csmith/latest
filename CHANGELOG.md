@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased
+## 1.3.0 - 2025-08-05
+
+### Other changes
+
+- TagOptions now includes a `PreReleases` field. If set, only tags with a
+  pre-release contained in the slice will be selected. This is useful for
+  selecting beta/RCs specifically, or convoluted versioning schemes with
+  components in like "v1.2.3-frontend".
 
 ### Bug fixes
 

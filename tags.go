@@ -16,6 +16,8 @@ type TagOptions struct {
 	IgnoreErrors bool
 	// Should pre-releases (-alpha, -beta, etc) be ignored?
 	IgnorePreRelease bool
+	// Only consider tags with prerelease identifiers matching one of these (case-insensitive)
+	PreReleases []string
 	// Strings to remove from the start of tags. Processed in order.
 	TrimPrefixes []string
 	// Strings to remove from the ends of tags. Processed in order.
@@ -58,6 +60,24 @@ func (t *TagOptions) latest(tags []string) (string, error) {
 
 		if v.Prerelease() != "" && t.IgnorePreRelease {
 			continue
+		}
+
+		if len(t.PreReleases) > 0 {
+			prerelease := v.Prerelease()
+			if prerelease == "" {
+				continue
+			}
+
+			found := false
+			for _, allowed := range t.PreReleases {
+				if strings.EqualFold(prerelease, allowed) {
+					found = true
+					break
+				}
+			}
+			if !found {
+				continue
+			}
 		}
 
 		if t.MajorVersionMax < v.Segments()[0] {
