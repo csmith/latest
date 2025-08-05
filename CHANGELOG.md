@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Bug fixes
+
+- The `container` executable now checks for the latest image tag, instead of
+  incorrectly checking for alpine packages.
+
 ## 1.2.0 - 2025-08-03
 
 ### Other changes

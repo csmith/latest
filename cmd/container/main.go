@@ -8,7 +8,6 @@ import (
 	"github.com/csmith/envflag/v2"
 	"github.com/csmith/latest"
 	"os"
-	"strings"
 )
 
 var showJson = flag.Bool("json", false, "Provide output in json")
@@ -22,18 +21,14 @@ func main() {
 	} else {
 		containerName = flag.Arg(0)
 	}
-	version, download, deps, err := latest.AlpinePackage(context.Background(), containerName, nil)
+	version, err := latest.ImageTag(context.Background(), containerName, nil)
 	if err != nil {
 		fmt.Println("Error getting latest container release: " + err.Error())
 	}
 	details := struct {
-		Version      string   `json:"version"`
-		Download     string   `json:"download"`
-		Dependencies []string `json:"deps"`
+		Version string `json:"version"`
 	}{
-		Version:      version,
-		Download:     download,
-		Dependencies: deps,
+		Version: version,
 	}
 	if *showJson {
 		err = nil
@@ -44,6 +39,5 @@ func main() {
 		fmt.Println(string(bytes))
 		return
 	}
-	fmt.Printf("Version: %s\nDownload: %s\nDependencies: %s\n",
-		details.Version, details.Download, strings.Join(details.Dependencies, ", "))
+	fmt.Printf("Version: %s\n", details.Version)
 }
