@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.1 - 2025-08-25
+
+### Other changes
+
+- Minor dependency updates
+- Minimum go version is now 1.24 instead of an arbitrary patch release
+
 ## 1.3.0 - 2025-08-05
 
 ### Other changes
