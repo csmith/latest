@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 - 2025-11-06
+
+### Bug fixes
+
+- Fix getting latest git version in repositories with dereferenced
+  tags (thanls @Greboid)
+
 ## 1.3.1 - 2025-08-25
 
 ### Other changes
