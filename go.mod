@@ -1,12 +1,12 @@
 module github.com/csmith/latest
 
-go 1.24
+go 1.24.0
 
 toolchain go1.24.5
 
 require (
 	dario.cat/mergo v1.0.2
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/csmith/apkutils/v2 v2.1.1
 	github.com/csmith/envflag/v2 v2.0.0
 	github.com/csmith/gitrefs v1.5.0
@@ -28,7 +28,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/vbatts/tar-split v0.12.1 // indirect
-	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 )
