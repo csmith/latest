@@ -10,8 +10,8 @@ github.com/csmith/apkutils/v2 v2.1.1 h1:vmHEaFGL3mLvuC4KDcCZpMaZ7lW9ICdjqACn5VIS
 github.com/csmith/apkutils/v2 v2.1.1/go.mod h1:zyWzK5NXJN67xgp/8rrMXbXDrEVo3rVocLc2/kvDaQg=
 github.com/csmith/envflag/v2 v2.0.0 h1:jho28W/psEqJ02EdbUHmkmFpbc5HFhog6NzHRbgtIFg=
 github.com/csmith/envflag/v2 v2.0.0/go.mod h1:GNzzXvZ2bC3z6tdoO45mTrs7l4Uht2WfBKaF1KQu0Pk=
-github.com/csmith/gitrefs v1.5.0 h1:EMMlZn1IBxIf57APfNM/zfTdH6qKFwYnTfzGPHElmFM=
-github.com/csmith/gitrefs v1.5.0/go.mod h1:RMHCRRgdnUY8sVho+qlGD7uIOpiV1YeE7yGn7cLn7DI=
+github.com/csmith/gitrefs v1.6.0 h1:9hs1De28Ehfo6udB/j4aoP1BFF+f6/vh3miL+RBjFp8=
+github.com/csmith/gitrefs v1.6.0/go.mod h1:RMHCRRgdnUY8sVho+qlGD7uIOpiV1YeE7yGn7cLn7DI=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

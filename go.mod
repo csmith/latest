@@ -9,7 +9,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/csmith/apkutils/v2 v2.1.1
 	github.com/csmith/envflag/v2 v2.0.0
-	github.com/csmith/gitrefs v1.5.0
+	github.com/csmith/gitrefs v1.6.0
 	github.com/google/go-containerregistry v0.20.6
 	github.com/hashicorp/go-version v1.7.0
 	gopkg.in/yaml.v2 v2.4.0

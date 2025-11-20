@@ -1,11 +1,22 @@
 # Changelog
 
+## 2.0.0 - 2025-11-20
+
+### Breaking changes
+
+- `GitTag` now takes a `GitTagOptions` struct that wraps `TagOptions`.
+
+### Features
+
+- `GitTag` can now pass on a username and password to authenticate with the
+  git server.
+
 ## 1.4.0 - 2025-11-06
 
 ### Bug fixes
 
 - Fix getting latest git version in repositories with dereferenced
-  tags (thanls @Greboid)
+  tags (thanks @Greboid)
 
 ## 1.3.1 - 2025-08-25
 
