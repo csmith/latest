@@ -3,12 +3,13 @@ package latest
 import (
 	"context"
 	"fmt"
-	"github.com/csmith/apkutils/v2"
-	"github.com/csmith/apkutils/v2/keys"
-	"github.com/csmith/latest/internal"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/csmith/apkutils/v2"
+	"github.com/csmith/apkutils/v2/keys"
+	"github.com/csmith/latest/v2/internal"
 )
 
 const defaultAlpineMirror = "https://dl-cdn.alpinelinux.org/alpine/"

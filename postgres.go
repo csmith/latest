@@ -3,8 +3,9 @@ package latest
 import (
 	"context"
 	"fmt"
-	"github.com/csmith/latest/internal"
 	"strings"
+
+	"github.com/csmith/latest/v2/internal"
 )
 
 func PostgresRelease(ctx context.Context, options *TagOptions) (latest, url, checksum string, err error) {

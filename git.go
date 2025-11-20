@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/csmith/gitrefs"
-	"github.com/csmith/latest/internal"
+	"github.com/csmith/latest/v2/internal"
 )
 
 const gitTagPrefix = "refs/tags/"

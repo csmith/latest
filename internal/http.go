@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"gopkg.in/yaml.v2"
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+	"gopkg.in/yaml.v2"
 )
 
 // FetchJson requests the given url and then attempts to unmarshal the body as JSON into the provided struct.

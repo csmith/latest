@@ -1,4 +1,4 @@
-module github.com/csmith/latest
+module github.com/csmith/latest/v2
 
 go 1.24.0
 

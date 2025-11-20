@@ -3,10 +3,11 @@ package latest
 import (
 	"context"
 	"fmt"
-	"github.com/csmith/latest/internal"
-	"github.com/hashicorp/go-version"
 	"net/url"
 	"strings"
+
+	"github.com/csmith/latest/v2/internal"
+	"github.com/hashicorp/go-version"
 )
 
 // GoOptions defines options for calling GoRelease.

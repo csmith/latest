@@ -3,10 +3,11 @@ package latest
 import (
 	"context"
 	"fmt"
-	"github.com/csmith/latest/internal"
+	"strings"
+
+	"github.com/csmith/latest/v2/internal"
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/crane"
-	"strings"
 )
 
 // ImageOptions defines options for image-related functions.

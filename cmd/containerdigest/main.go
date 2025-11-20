@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/csmith/envflag/v2"
-	"github.com/csmith/latest"
+	"github.com/csmith/latest/v2"
 )
 
 var showJson = flag.Bool("json", false, "Provide output in json")

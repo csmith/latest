@@ -2,10 +2,11 @@ package latest
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-version"
 	"math"
 	"regexp"
 	"strings"
+
+	"github.com/hashicorp/go-version"
 )
 
 // TagOptions defines options for functions that need to deal with semver tags.

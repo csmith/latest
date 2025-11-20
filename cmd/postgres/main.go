@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/csmith/envflag/v2"
-	"github.com/csmith/latest"
 	"os"
 	"strconv"
+
+	"github.com/csmith/envflag/v2"
+	"github.com/csmith/latest/v2"
 )
 
 var showJson = flag.Bool("json", false, "Provide output in json")
