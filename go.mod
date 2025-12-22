@@ -11,7 +11,7 @@ require (
 	github.com/csmith/envflag/v2 v2.0.0
 	github.com/csmith/gitrefs v1.6.0
 	github.com/google/go-containerregistry v0.20.7
-	github.com/hashicorp/go-version v1.7.0
+	github.com/hashicorp/go-version v1.8.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
