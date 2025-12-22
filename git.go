@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/csmith/gitrefs"
-	"github.com/csmith/latest/v2/internal"
+	"github.com/csmith/latest/v3/internal"
 )
 
 const gitTagPrefix = "refs/tags/"
@@ -23,10 +23,10 @@ var defaultGitTagOptions = GitTagOptions{
 }
 
 // GitTag lists the tags available in the specified repository, and returns the
-// latest semver tag.
+// latest semver tag, and the commit ID it points at.
 //
 // The repository must be specified as an HTTP/HTTPS url.
-func GitTag(ctx context.Context, repo string, options *GitTagOptions) (string, error) {
+func GitTag(ctx context.Context, repo string, options *GitTagOptions) (string, string, error) {
 	o := internal.ApplyDefaults(&defaultGitTagOptions, options)
 	o.TrimPrefixes = append([]string{gitTagPrefix}, o.TrimPrefixes...)
 
@@ -34,18 +34,18 @@ func GitTag(ctx context.Context, repo string, options *GitTagOptions) (string, e
 		gitrefs.TagsOnly(),
 		gitrefs.WithContext(ctx),
 	}
-	if options.Username != "" || options.Password != "" {
-		gitrefsOptions = append(gitrefsOptions, gitrefs.WithAuth(options.Username, options.Password))
+	if o.Username != "" || o.Password != "" {
+		gitrefsOptions = append(gitrefsOptions, gitrefs.WithAuth(o.Username, o.Password))
 	}
 	refs, err := gitrefs.Fetch(repo, gitrefsOptions...)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	tag, err := o.latest(slices.Collect(maps.Keys(refs)))
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return strings.TrimPrefix(tag, gitTagPrefix), nil
+	return strings.TrimPrefix(tag, gitTagPrefix), refs[tag], nil
 }

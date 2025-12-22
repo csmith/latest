@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/csmith/envflag/v2"
-	"github.com/csmith/latest/v2"
+	"github.com/csmith/latest/v3"
 )
 
 var showJson = flag.Bool("json", false, "Provide output in json")
@@ -22,14 +22,16 @@ func main() {
 	} else {
 		gitRepo = flag.Arg(0)
 	}
-	version, err := latest.GitTag(context.Background(), gitRepo, nil)
+	version, commit, err := latest.GitTag(context.Background(), gitRepo, nil)
 	if err != nil {
 		fmt.Println("Error getting latest git repo: " + err.Error())
 	}
 	details := struct {
 		Version string `json:"version"`
+		Commit  string `json:"commit"`
 	}{
 		Version: version,
+		Commit:  commit,
 	}
 	if *showJson {
 		err = nil
@@ -41,4 +43,5 @@ func main() {
 		return
 	}
 	fmt.Printf("Version: %s\n", details.Version)
+	fmt.Printf("Commit: %s\n", details.Commit)
 }

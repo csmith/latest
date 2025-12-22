@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/csmith/latest/v2/internal"
+	"github.com/csmith/latest/v3/internal"
 )
 
 func PostgresRelease(ctx context.Context, options *TagOptions) (latest, url, checksum string, err error) {

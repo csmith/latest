@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/csmith/latest/v2/internal"
+	"github.com/csmith/latest/v3/internal"
 	"github.com/hashicorp/go-version"
 )
 

@@ -1,5 +1,15 @@
 # Changelog
 
+### 3.0.0 - 2025-12-22
+
+### Breaking changes
+
+- `GitTag` now also returns the commit ID the tag points to.
+
+### Bug fixes
+
+- Fix panic in `GitTag` if no options are provided.
+
 ## 2.0.1 - 2025-11-20
 
 - Corrected module path to github.com/csmith/latest/v2

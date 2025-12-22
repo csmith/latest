@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/csmith/latest/v2/internal"
+	"github.com/csmith/latest/v3/internal"
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/crane"
 )

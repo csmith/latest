@@ -9,7 +9,7 @@ import (
 
 	"github.com/csmith/apkutils/v2"
 	"github.com/csmith/apkutils/v2/keys"
-	"github.com/csmith/latest/v2/internal"
+	"github.com/csmith/latest/v3/internal"
 )
 
 const defaultAlpineMirror = "https://dl-cdn.alpinelinux.org/alpine/"
