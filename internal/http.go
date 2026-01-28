@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"gopkg.in/yaml.v2"
+	"github.com/goccy/go-yaml"
 )
 
 // FetchJson requests the given url and then attempts to unmarshal the body as JSON into the provided struct.

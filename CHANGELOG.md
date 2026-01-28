@@ -1,6 +1,12 @@
 # Changelog
 
-### 3.0.0 - 2025-12-22
+## Unreleased
+
+### Other changes
+
+- Migrated to github.com/goccy/go-yaml for YAML parsing
+
+## 3.0.0 - 2025-12-22
 
 ### Breaking changes
 
