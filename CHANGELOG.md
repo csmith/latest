@@ -1,10 +1,16 @@
 # Changelog
 
-## Unreleased
+## 3.0.1 - 2026-02-16
+
+### Bug fixes
+
+- Updated to apkutils v2.1.2 which fixes an occasional infinite loop when
+  resolving APK dependencies with `pc:` constraints
 
 ### Other changes
 
 - Migrated to github.com/goccy/go-yaml for YAML parsing
+- Other minor dependency updates
 
 ## 3.0.0 - 2025-12-22
 
