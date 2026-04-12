@@ -6,7 +6,7 @@ toolchain go1.26.2
 
 require (
 	dario.cat/mergo v1.0.2
-	github.com/PuerkitoBio/goquery v1.11.0
+	github.com/PuerkitoBio/goquery v1.12.0
 	github.com/csmith/apkutils/v2 v2.1.2
 	github.com/csmith/envflag/v2 v2.0.0
 	github.com/csmith/gitrefs v1.6.0
@@ -27,7 +27,7 @@ require (
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/vbatts/tar-split v0.12.2 // indirect
-	golang.org/x/net v0.47.0 // indirect
+	golang.org/x/net v0.52.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/sys v0.42.0 // indirect
 )
