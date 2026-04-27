@@ -12,7 +12,7 @@ require (
 	github.com/csmith/gitrefs v1.6.0
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-containerregistry v0.21.3
-	github.com/hashicorp/go-version v1.8.0
+	github.com/hashicorp/go-version v1.9.0
 )
 
 require (
