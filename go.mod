@@ -11,14 +11,14 @@ require (
 	github.com/csmith/envflag/v2 v2.0.0
 	github.com/csmith/gitrefs v1.6.0
 	github.com/goccy/go-yaml v1.19.2
-	github.com/google/go-containerregistry v0.21.4
+	github.com/google/go-containerregistry v0.21.5
 	github.com/hashicorp/go-version v1.9.0
 )
 
 require (
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.18.2 // indirect
-	github.com/docker/cli v29.3.1+incompatible // indirect
+	github.com/docker/cli v29.4.0+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.9.3 // indirect
 	github.com/klauspost/compress v1.18.5 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
@@ -28,6 +28,6 @@ require (
 	github.com/vbatts/tar-split v0.12.2 // indirect
 	golang.org/x/net v0.52.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.42.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
 	gotest.tools/v3 v3.5.2 // indirect
 )
