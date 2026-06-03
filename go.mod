@@ -2,7 +2,7 @@ module github.com/csmith/latest/v3
 
 go 1.25.7
 
-toolchain go1.26.3
+toolchain go1.26.4
 
 require (
 	dario.cat/mergo v1.0.2
