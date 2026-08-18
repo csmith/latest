@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0 - 2026-08-18 
+
+- `TagOptions` now includes a `Transform` field, allowing tags to be
+  normalized before they are parsed as versions. This enables handling tags
+  that don't follow semver conventions, for example `curl-8_13_0`.
+
 ## 3.0.1 - 2026-02-16
 
 ### Bug fixes

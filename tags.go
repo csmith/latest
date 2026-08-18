@@ -23,6 +23,11 @@ type TagOptions struct {
 	TrimPrefixes []string
 	// Strings to remove from the ends of tags. Processed in order.
 	TrimSuffixes []string
+	// Optional function to apply to tags once prefixes/suffixes have been
+	// trimmed. Can be used to normalize tags that don't follow semver
+	// conventions, e.g. replacing underscores with dots in curl's
+	// `curl-8_13_0` tags.
+	Transform func(string) string
 	// The maximum major version to consider.
 	MajorVersionMax int
 }
@@ -44,6 +49,9 @@ func (t *TagOptions) latest(tags []string) (string, error) {
 		}
 		for _, suffix := range t.TrimSuffixes {
 			stripped = strings.TrimSuffix(stripped, suffix)
+		}
+		if t.Transform != nil {
+			stripped = t.Transform(stripped)
 		}
 
 		if t.IgnoreDates && dateRegexp.MatchString(stripped) {
