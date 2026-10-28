@@ -1,6 +1,6 @@
 module github.com/csmith/latest/v3
 
-go 1.25.7
+go 1.26.0
 
 toolchain go1.27.3
 
@@ -23,8 +23,8 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/sirupsen/logrus v1.9.4 // indirect
-	golang.org/x/net v0.58.0 // indirect
+	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
-	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
 	gotest.tools/v3 v3.5.2 // indirect
 )
