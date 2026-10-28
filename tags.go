@@ -1,9 +1,11 @@
 package latest
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/hashicorp/go-version"
@@ -43,53 +45,12 @@ func (t *TagOptions) latest(tags []string) (string, error) {
 	bestRaw := ""
 
 	for i := range tags {
-		stripped := tags[i]
-		for _, prefix := range t.TrimPrefixes {
-			stripped = strings.TrimPrefix(stripped, prefix)
-		}
-		for _, suffix := range t.TrimSuffixes {
-			stripped = strings.TrimSuffix(stripped, suffix)
-		}
-		if t.Transform != nil {
-			stripped = t.Transform(stripped)
-		}
-
-		if t.IgnoreDates && dateRegexp.MatchString(stripped) {
-			continue
-		}
-
-		v, err := version.NewVersion(stripped)
+		v, err := t.parse(tags[i])
 		if err != nil {
-			if t.IgnoreErrors {
-				continue
-			} else {
-				return "", fmt.Errorf("unable to parse tag '%s': %w", stripped, err)
-			}
+			return "", err
 		}
 
-		if v.Prerelease() != "" && t.IgnorePreRelease {
-			continue
-		}
-
-		if len(t.PreReleases) > 0 {
-			prerelease := v.Prerelease()
-			if prerelease == "" {
-				continue
-			}
-
-			found := false
-			for _, allowed := range t.PreReleases {
-				if strings.EqualFold(prerelease, allowed) {
-					found = true
-					break
-				}
-			}
-			if !found {
-				continue
-			}
-		}
-
-		if t.MajorVersionMax < v.Segments()[0] {
+		if v == nil || !t.allows(v) {
 			continue
 		}
 
@@ -100,8 +61,56 @@ func (t *TagOptions) latest(tags []string) (string, error) {
 	}
 
 	if bestRaw == "" {
-		return "", fmt.Errorf("no valid tags found")
+		return "", errors.New("no valid tags found")
 	}
 
 	return bestRaw, nil
+}
+
+// parse normalises the tag and parses it as a version. It returns a nil version if the tag should be skipped.
+func (t *TagOptions) parse(tag string) (*version.Version, error) {
+	stripped := tag
+	for _, prefix := range t.TrimPrefixes {
+		stripped = strings.TrimPrefix(stripped, prefix)
+	}
+	for _, suffix := range t.TrimSuffixes {
+		stripped = strings.TrimSuffix(stripped, suffix)
+	}
+	if t.Transform != nil {
+		stripped = t.Transform(stripped)
+	}
+
+	if t.IgnoreDates && dateRegexp.MatchString(stripped) {
+		return nil, nil
+	}
+
+	v, err := version.NewVersion(stripped)
+	if err != nil {
+		if t.IgnoreErrors {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("unable to parse tag '%s': %w", stripped, err)
+	}
+
+	return v, nil
+}
+
+func (t *TagOptions) allows(v *version.Version) bool {
+	prerelease := v.Prerelease()
+	if prerelease != "" && t.IgnorePreRelease {
+		return false
+	}
+
+	if len(t.PreReleases) > 0 {
+		if prerelease == "" {
+			return false
+		}
+
+		matches := func(allowed string) bool { return strings.EqualFold(prerelease, allowed) }
+		if !slices.ContainsFunc(t.PreReleases, matches) {
+			return false
+		}
+	}
+
+	return t.MajorVersionMax >= v.Segments()[0]
 }

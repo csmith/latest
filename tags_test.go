@@ -8,20 +8,23 @@ import (
 )
 
 func TestTransform(t *testing.T) {
-	o := internal.ApplyDefaults(&defaultTagOptions, &TagOptions{
-		IgnorePreRelease: true,
-		TrimPrefixes:     []string{"curl-"},
-		Transform: func(s string) string {
-			return strings.ReplaceAll(s, "_", ".")
+	tag, err := internal.ApplyDefaults(
+		&defaultTagOptions,
+		&TagOptions{
+			IgnorePreRelease: true,
+			TrimPrefixes:     []string{"curl-"},
+			Transform: func(s string) string {
+				return strings.ReplaceAll(s, "_", ".")
+			},
 		},
-	})
-
-	tag, err := o.latest([]string{
-		"curl-7_88_1",
-		"curl-8_12_1",
-		"curl-8_13_0",
-		"curl-8_14_0-rc1",
-	})
+	).latest(
+		[]string{
+			"curl-7_88_1",
+			"curl-8_12_1",
+			"curl-8_13_0",
+			"curl-8_14_0-rc1",
+		},
+	)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}

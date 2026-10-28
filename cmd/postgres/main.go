@@ -39,7 +39,6 @@ func main() {
 		Checksum: checksum,
 	}
 	if *showJson {
-		err = nil
 		bytes, err := json.Marshal(&details)
 		if err != nil {
 			fmt.Println("Error printing json: " + err.Error())
@@ -47,6 +46,10 @@ func main() {
 		fmt.Println(string(bytes))
 		return
 	}
-	fmt.Printf("Version: %s\nDownload: %s\nChecksum: %s\n",
-		details.Version, details.Download, details.Checksum)
+	fmt.Printf(
+		"Version: %s\nDownload: %s\nChecksum: %s\n",
+		details.Version,
+		details.Download,
+		details.Checksum,
+	)
 }

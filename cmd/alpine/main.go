@@ -35,6 +35,10 @@ func main() {
 		fmt.Println(string(bytes))
 		return
 	}
-	fmt.Printf("Version: %s\nDownload: %s\nChecksum: %s\n",
-		details.Version, details.Download, details.Checksum)
+	fmt.Printf(
+		"Version: %s\nDownload: %s\nChecksum: %s\n",
+		details.Version,
+		details.Download,
+		details.Checksum,
+	)
 }

@@ -2,6 +2,7 @@ package latest
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"strings"
@@ -24,7 +25,10 @@ type GoOptions struct {
 
 // GoRelease finds the latest release of Go, returning the version, download URL
 // and file checksum.
-func GoRelease(ctx context.Context, options *GoOptions) (latestVersion, downloadUrl, downloadChecksum string, err error) {
+func GoRelease(
+	ctx context.Context,
+	options *GoOptions,
+) (latestVersion, downloadUrl, downloadChecksum string, err error) {
 	o := internal.ApplyDefaults(
 		&GoOptions{
 			Kind: "source",
@@ -63,18 +67,18 @@ func GoRelease(ctx context.Context, options *GoOptions) (latestVersion, download
 		if v.GreaterThan(best) || (v.Equal(best) && strings.Compare(v.Original(), best.Original()) < 0) {
 			best = v
 
-			for j := range r.Files {
-				if r.Files[j].Kind == o.Kind && (o.Arch == "" || r.Files[j].Arch == o.Arch) && (o.Os == "" || r.Files[j].Os == o.Os) {
+			for _, f := range r.Files {
+				if f.Kind == o.Kind && (o.Arch == "" || f.Arch == o.Arch) && (o.Os == "" || f.Os == o.Os) {
 					latestVersion = r.Version
-					downloadUrl, _ = url.JoinPath(baseUrl, r.Files[j].Filename)
-					downloadChecksum = r.Files[j].Checksum
+					downloadUrl, _ = url.JoinPath(baseUrl, f.Filename)
+					downloadChecksum = f.Checksum
 				}
 			}
 		}
 	}
 
 	if latestVersion == "" {
-		return "", "", "", fmt.Errorf("unable to find matching golang release")
+		return "", "", "", errors.New("unable to find matching golang release")
 	}
 
 	return

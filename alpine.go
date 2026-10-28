@@ -2,6 +2,7 @@ package latest
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -27,7 +28,10 @@ type AlpineReleaseOptions struct {
 
 // AlpineRelease finds the latest release of Alpine Linux, returning the version, download URL
 // and file checksum.
-func AlpineRelease(ctx context.Context, options *AlpineReleaseOptions) (latestVersion, downloadUrl, downloadChecksum string, err error) {
+func AlpineRelease(
+	ctx context.Context,
+	options *AlpineReleaseOptions,
+) (latestVersion, downloadUrl, downloadChecksum string, err error) {
 	o := internal.ApplyDefaults(
 		&AlpineReleaseOptions{
 			Mirror:  defaultAlpineMirror,
@@ -72,7 +76,7 @@ func AlpineRelease(ctx context.Context, options *AlpineReleaseOptions) (latestVe
 		}
 	}
 
-	return "", "", "", fmt.Errorf("couldn't find matching alpine release")
+	return "", "", "", errors.New("couldn't find matching alpine release")
 }
 
 type AlpinePackageInfo = apkutils.PackageInfo
@@ -132,7 +136,7 @@ func AlpinePackages(ctx context.Context, options *AlpinePackagesOptions) (map[st
 // packages between calls of AlpinePackage.
 type AlpinePackageCache interface {
 	// Put stores the given data in the cache
-	Put(map[string]*AlpinePackageInfo) error
+	Put(packages map[string]*AlpinePackageInfo) error
 	// Get retrieves the existing cached data, or an empty map if not available
 	Get() (map[string]*AlpinePackageInfo, error)
 }
@@ -181,11 +185,18 @@ type AlpinePackageOptions struct {
 // given to ensure that a unique cache is provided for each combination.
 //
 // pkg can be a package name, or any token that is provided by a package, e.g. "so:libssl.so.3" or "cmd:busybox".
-func AlpinePackage(ctx context.Context, pkg string, options *AlpinePackageOptions) (latestVersion, downloadUrl string, dependencies []string, err error) {
-	o := internal.ApplyDefaults(&AlpinePackageOptions{
-		Cache:                 NewInMemoryAlpinePackageCache(),
-		AlpinePackagesOptions: alpinePackagesDefaults,
-	}, options)
+func AlpinePackage(
+	ctx context.Context,
+	pkg string,
+	options *AlpinePackageOptions,
+) (latestVersion, downloadUrl string, dependencies []string, err error) {
+	o := internal.ApplyDefaults(
+		&AlpinePackageOptions{
+			Cache:                 NewInMemoryAlpinePackageCache(),
+			AlpinePackagesOptions: alpinePackagesDefaults,
+		},
+		options,
+	)
 
 	packages, err := o.Cache.Get()
 	if err != nil {

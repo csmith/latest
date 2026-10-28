@@ -37,7 +37,6 @@ func main() {
 		Dependencies: deps,
 	}
 	if *showJson {
-		err = nil
 		bytes, err := json.Marshal(&details)
 		if err != nil {
 			fmt.Println("Error printing json: " + err.Error())
@@ -45,6 +44,10 @@ func main() {
 		fmt.Println(string(bytes))
 		return
 	}
-	fmt.Printf("Version: %s\nDownload: %s\nDependencies: %s\n",
-		details.Version, details.Download, strings.Join(details.Dependencies, ", "))
+	fmt.Printf(
+		"Version: %s\nDownload: %s\nDependencies: %s\n",
+		details.Version,
+		details.Download,
+		strings.Join(details.Dependencies, ", "),
+	)
 }

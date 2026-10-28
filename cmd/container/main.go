@@ -32,7 +32,6 @@ func main() {
 		Version: version,
 	}
 	if *showJson {
-		err = nil
 		bytes, err := json.Marshal(&details)
 		if err != nil {
 			fmt.Println("Error printing json: " + err.Error())

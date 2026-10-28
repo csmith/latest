@@ -29,10 +29,12 @@ func (o *ImageOptions) craneAuth() crane.Option {
 	if o.Username == "" || o.Password == "" {
 		authOpt = crane.WithAuthFromKeychain(authn.DefaultKeychain)
 	} else {
-		authOpt = crane.WithAuth(&authn.Basic{
-			Username: o.Username,
-			Password: o.Password,
-		})
+		authOpt = crane.WithAuth(
+			&authn.Basic{
+				Username: o.Username,
+				Password: o.Password,
+			},
+		)
 	}
 
 	return authOpt
